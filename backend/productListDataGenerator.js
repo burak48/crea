@@ -1,5 +1,5 @@
-import { faker } from "@faker-js/faker";
-import fs from "fs";
+import { faker } from '@faker-js/faker';
+import fs from 'fs';
 
 const generateProducts = (count) => {
   const productList = [];
@@ -11,7 +11,7 @@ const generateProducts = (count) => {
       price: faker.finance.amount({ min: 0, max: 99, dec: 2 }),
       score: faker.number.int({ min: 0, max: 5 }),
       image: faker.image.urlLoremFlickr({
-        category: "nature",
+        category: 'nature',
         width: 320,
         height: 180,
       }),
@@ -24,4 +24,4 @@ const generateProducts = (count) => {
 };
 
 const mockData = generateProducts(7);
-fs.writeFileSync("./productListData.json", JSON.stringify(mockData));
+fs.writeFileSync('./productListData.json', JSON.stringify(mockData));
