@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const resetForm = () => {
     setUsername("");
@@ -14,6 +16,7 @@ const Login = () => {
     if (username === "user" && password === "user123") {
       console.log("Successfully Logged In");
       resetForm();
+      navigate("/home");
     } else {
       console.error("Invalid Credentials");
       resetForm();
