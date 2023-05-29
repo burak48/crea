@@ -1,0 +1,51 @@
+[
+  {
+    "id": "3e4fe795-33e0-4c9d-9747-b185037c65b0",
+    "name": "sunt eveniet expedita",
+    "price": "16.39",
+    "score": 3,
+    "image": "https://loremflickr.com/320/180/nature?lock=6590931505512448"
+  },
+  {
+    "id": "59b73c78-22db-4a6f-8ac4-f56b5456ad9e",
+    "name": "ipsam necessitatibus quo",
+    "price": "33.87",
+    "score": 0,
+    "image": "https://loremflickr.com/320/180/nature?lock=4855983962587136"
+  },
+  {
+    "id": "82f99775-d258-4462-aae9-ebae9d196415",
+    "name": "aliquid maxime accusantium",
+    "price": "73.08",
+    "score": 5,
+    "image": "https://loremflickr.com/320/180/nature?lock=3020440257691648"
+  },
+  {
+    "id": "75c718b8-8f6f-4138-bb70-a5d571ec00b0",
+    "name": "atque aliquam similique",
+    "price": "75.81",
+    "score": 0,
+    "image": "https://loremflickr.com/320/180/nature?lock=1896828700196864"
+  },
+  {
+    "id": "2eb0c2ee-1b38-45cc-b170-d043acad62dc",
+    "name": "eos hic adipisci",
+    "price": "98.82",
+    "score": 1,
+    "image": "https://loremflickr.com/320/180/nature?lock=2626858407428096"
+  },
+  {
+    "id": "3ea38713-13dd-4a9e-a6a8-0aa79a4a8fe6",
+    "name": "eveniet cumque illo",
+    "price": "41.66",
+    "score": 3,
+    "image": "https://loremflickr.com/320/180/nature?lock=6234259421396992"
+  },
+  {
+    "id": "87679719-cc7e-4e54-af00-d2fede088bc6",
+    "name": "officia voluptate nam",
+    "price": "53.53",
+    "score": 2,
+    "image": "https://loremflickr.com/320/180/nature?lock=2465248254623744"
+  }
+]
