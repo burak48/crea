@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
 import axios from 'axios'
+import Star from '../Star'
 
 function ProductDetail() {
     const {id} = useParams() // get the ID from the URL
@@ -23,7 +24,7 @@ function ProductDetail() {
     useEffect(() => {
         const fetchProductDetail = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/product/${id}`)
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/product/${id}`)
                 setProduct(response.data)
                 setComments(response.data.comments)
             } catch (error) {
@@ -42,7 +43,7 @@ function ProductDetail() {
         e.preventDefault()
 
         try {
-            const response = await axios.post(`http://localhost:3001/product/${id}`, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/product/${id}`, {
                 comment: newComment,
                 rating: newRating,
             })
@@ -103,18 +104,7 @@ function ProductDetail() {
                             <span className="text-yellow-500 inline-flex text-lg mb-2 mr-2">
                                 {Array.from({length: calculateAverageRating(comments)}).map(
                                     (_, index) => (
-                                        <svg
-                                            key={index}
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="h-5 w-5 fill-current"
-                                            viewBox="0 0 20 20"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M18.832 8.843l-5.742-.834L10 2.269 7.91 8.01 2.167 8.843l4.148 4.035-.978 5.694L10 15.063l5.664 2.506-.978-5.694 4.148-4.035z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
+                                        <Star key={index} />
                                     )
                                 )}
                             </span>
@@ -160,7 +150,19 @@ function ProductDetail() {
                                                 <li key={comment.id} className="mb-2">
                                                     <p>{comment.username}</p>
                                                     <p>{comment.comment}</p>
-                                                    <p>{comment.rating} stars</p>
+                                                    {/* <p>{comment.rating} stars</p> */}
+                                                    <div className="flex items-center mt-2">
+                                                        <span className="text-yellow-500 inline-flex text-lg mb-2 mr-2">
+                                                            {Array.from({
+                                                                length: comment.rating,
+                                                            }).map((_, index) => (
+                                                                <Star key={index} />
+                                                            ))}
+                                                        </span>
+                                                        <p className="text-lg mb-2">
+                                                            {comment.rating}
+                                                        </p>
+                                                    </div>
                                                 </li>
                                             ))}
                                         </ul>

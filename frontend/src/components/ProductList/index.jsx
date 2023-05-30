@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import {useNavigate, Link} from 'react-router-dom'
+import Star from '../Star'
 
 function ProductList() {
     const [products, setProducts] = useState([])
@@ -20,7 +21,7 @@ function ProductList() {
 
         const fetchProducts = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/products`)
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/products`)
                 if (response.status === 200) {
                     setProducts(response.data)
                 } else {
@@ -32,14 +33,14 @@ function ProductList() {
         }
 
         fetchProducts()
-    })
+    }, [token])
 
     return (
         <>
             {token && (
-                <div className="container mx-auto pb-8">
+                <div className="container mx-auto p-4 sm:pb-8">
                     <h1 className="text-2xl font-bold my-4">Product List</h1>
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                         {products.map((product) => (
                             <div key={product.id} className="border border-gray-300 rounded p-4">
                                 <Link
@@ -57,18 +58,7 @@ function ProductList() {
                                     <div className="flex items-center mt-2">
                                         <span className="text-yellow-500 inline-flex">
                                             {Array.from({length: product.score}).map((_, index) => (
-                                                <svg
-                                                    key={index}
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    className="h-5 w-5 fill-current"
-                                                    viewBox="0 0 20 20"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M18.832 8.843l-5.742-.834L10 2.269 7.91 8.01 2.167 8.843l4.148 4.035-.978 5.694L10 15.063l5.664 2.506-.978-5.694 4.148-4.035z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
+                                                <Star key={index} />
                                             ))}
                                         </span>
                                         <span className="text-gray-600 ml-1">{product.score}</span>

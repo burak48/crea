@@ -4,6 +4,7 @@ import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import fs from 'fs';
+import 'dotenv/config';
 
 const productListData = JSON.parse(
   fs.readFileSync('./productListData.json', 'utf-8')
@@ -14,7 +15,7 @@ const productDetailData = JSON.parse(
 );
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 // Add middleware for parsing request bodies
 app.use(bodyParser.json());
@@ -27,7 +28,7 @@ const users = [
   {
     id: 1,
     username: 'user',
-    password: '$2a$12$rG9czHZFac0imcj3o0OP0.2dv/sVs3MAs.lMFUQQzFpLa72wuJCZS', // Hashed password for "user123"
+    password: process.env.USER_PASSWORD,
   },
 ];
 
@@ -48,13 +49,9 @@ app.post('/login', (req, res) => {
     }
 
     // Generate a JWT token
-    const token = jwt.sign(
-      { userId: user.id },
-      'wvnpoN7UISgF0xNnyUXnkyBa-miJAGjVYMc3dOqMlQq4CPtbyVPNc5OjhIxyEsr5',
-      {
-        expiresIn: '1h',
-      }
-    );
+    const token = jwt.sign({ userId: user.id }, process.env.USER_SECRET_KEY, {
+      expiresIn: '1h',
+    });
     res.status(200).json({ token });
   });
 });
@@ -84,8 +81,6 @@ app.post('/product/:id', (req, res) => {
   const productId = req.params.id;
   const { comment, rating } = req.body;
 
-  // Save the comment and update the product's comments, totalComments, and averageRating
-  // Replace this with your own logic to save the comment and update the product data
   const updatedProduct = saveComment(productId, comment, rating);
 
   res.json({
@@ -101,13 +96,10 @@ app.post('/product/:id', (req, res) => {
   });
 });
 
-// Example function to save the comment and update the product data
 function saveComment(productId, comment, rating) {
-  // Replace this with your own logic to save the comment and update the product data
-  // Example implementation
   const product = getProductById(productId);
   const newComment = {
-    id: generateCommentId(),
+    id: Math.floor(Math.random() * 100),
     comment,
     rating,
   };
@@ -120,7 +112,6 @@ function saveComment(productId, comment, rating) {
   return product;
 }
 
-// Example function to calculate the average rating from the comments
 function calculateAverageRating(comments) {
   if (comments.length === 0) {
     return 0;
@@ -133,14 +124,6 @@ function calculateAverageRating(comments) {
   return totalRating / comments.length;
 }
 
-// Example function to generate a unique comment ID
-function generateCommentId() {
-  // Replace this with your own logic to generate a unique comment ID
-  // Example implementation using a simple counter
-  let commentId = 1;
-  return () => commentId++;
-}
-
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
@@ -148,3 +131,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
+
+export default app;
