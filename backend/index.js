@@ -80,6 +80,67 @@ app.get('/product/:id', (req, res) => {
   res.json(product);
 });
 
+app.post('/product/:id', (req, res) => {
+  const productId = req.params.id;
+  const { comment, rating } = req.body;
+
+  // Save the comment and update the product's comments, totalComments, and averageRating
+  // Replace this with your own logic to save the comment and update the product data
+  const updatedProduct = saveComment(productId, comment, rating);
+
+  res.json({
+    comment: {
+      id:
+        updatedProduct.comments[updatedProduct.comments.length - 1].id +
+        Math.floor(Math.random() * 100),
+      comment,
+      rating,
+    },
+    totalComments: updatedProduct.comments.length,
+    averageRating: calculateAverageRating(updatedProduct.comments),
+  });
+});
+
+// Example function to save the comment and update the product data
+function saveComment(productId, comment, rating) {
+  // Replace this with your own logic to save the comment and update the product data
+  // Example implementation
+  const product = getProductById(productId);
+  const newComment = {
+    id: generateCommentId(),
+    comment,
+    rating,
+  };
+  product.comments.push(newComment);
+
+  // Update the totalComments and averageRating
+  product.totalComments = product.comments.length;
+  product.averageRating = calculateAverageRating(product.comments);
+
+  return product;
+}
+
+// Example function to calculate the average rating from the comments
+function calculateAverageRating(comments) {
+  if (comments.length === 0) {
+    return 0;
+  }
+
+  const totalRating = comments.reduce(
+    (sum, comment) => sum + comment.rating,
+    0
+  );
+  return totalRating / comments.length;
+}
+
+// Example function to generate a unique comment ID
+function generateCommentId() {
+  // Replace this with your own logic to generate a unique comment ID
+  // Example implementation using a simple counter
+  let commentId = 1;
+  return () => commentId++;
+}
+
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });

@@ -18,6 +18,15 @@ const generateComments = (count) => {
   return comments;
 };
 
+function formatDate(date) {
+  const d = new Date(date);
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const year = d.getFullYear();
+
+  return `${month}.${day}.${year}`;
+}
+
 const generateProductDetail = (count) => {
   const productDetail = [];
 
@@ -33,7 +42,7 @@ const generateProductDetail = (count) => {
       description: faker.lorem.paragraphs(),
       details: faker.lorem.paragraphs(),
       price: faker.finance.amount({ min: 0, max: 99, dec: 2, symbol: '$' }),
-      arrivalDate: faker.date.recent(),
+      arrivalDate: formatDate(faker.date.recent()),
       comments: generateComments(faker.number.int({ min: 1, max: count })),
     };
 

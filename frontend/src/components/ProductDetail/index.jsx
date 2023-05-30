@@ -30,6 +30,26 @@ function ProductDetail() {
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault()
+
+        try {
+            const response = await axios.post(`http://localhost:3001/product/${id}`, {
+                comment: newComment,
+                rating: newRating,
+            })
+
+            setComments([...comments, response.data.comment])
+
+            setNewComment('')
+            setNewRating(0)
+
+            const updatedProduct = {...product}
+            updatedProduct.totalComments = response.data.totalComments
+            updatedProduct.averageRating = response.data.averageRating
+
+            setProduct(updatedProduct)
+        } catch (error) {
+            console.error('Error submitting comment:', error)
+        }
     }
 
     if (!product) {
@@ -44,8 +64,8 @@ function ProductDetail() {
         }
 
         const totalRating = comments.reduce((sum, comment) => sum + comment.rating, 0)
-        const averageRating = totalRating / comments.length
-        console.log(averageRating)
+        const averageRating = parseInt(totalRating / comments.length)
+
         return `${averageRating}`
     }
 
@@ -58,10 +78,27 @@ function ProductDetail() {
                 <p className="text-lg font-bold mb-2">Price: {product.price}</p>
                 <p className="text-lg mb-2">Arrival Date: {product.arrivalDate}</p>
                 <p className="text-lg mb-2">Total Comments: {totalComments}</p>
-                <p className="text-lg mb-2">
-                    Average Rating: {calculateAverageRating(comments)} stars
-                </p>
-                <div className="mb-4">
+                <div className="flex items-center mt-2">
+                    <p className="text-lg mb-2">Average Rating: </p>
+                    <span className="text-yellow-500 inline-flex text-lg mb-2 mr-2">
+                        {Array.from({length: calculateAverageRating(comments)}).map((_, index) => (
+                            <svg
+                                key={index}
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5 fill-current"
+                                viewBox="0 0 20 20"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M18.832 8.843l-5.742-.834L10 2.269 7.91 8.01 2.167 8.843l4.148 4.035-.978 5.694L10 15.063l5.664 2.506-.978-5.694 4.148-4.035z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                        ))}
+                    </span>
+                    <p className="text-lg mb-2">{calculateAverageRating(comments)}</p>
+                </div>
+                <div className="my-4">
                     <ul className="flex border-b">
                         <li className="-mb-px mr-1">
                             <button
