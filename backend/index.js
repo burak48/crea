@@ -3,6 +3,11 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import fs from 'fs';
+
+const productListData = JSON.parse(
+  fs.readFileSync('./productListData.json', 'utf-8')
+);
 
 const app = express();
 const port = 3001;
@@ -48,6 +53,12 @@ app.post('/login', (req, res) => {
     );
     res.status(200).json({ token });
   });
+});
+
+app.get('/products', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.send(productListData);
 });
 
 app.get('/', (req, res) => {
