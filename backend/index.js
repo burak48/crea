@@ -9,6 +9,10 @@ const productListData = JSON.parse(
   fs.readFileSync('./productListData.json', 'utf-8')
 );
 
+const productDetailData = JSON.parse(
+  fs.readFileSync('./productDetailData.json', 'utf-8')
+);
+
 const app = express();
 const port = 3001;
 
@@ -59,6 +63,21 @@ app.get('/products', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.send(productListData);
+});
+
+const getProductById = (productId) => {
+  return productDetailData.find((product) => product.id === productId);
+};
+
+app.get('/product/:id', (req, res) => {
+  const productId = req.params.id;
+  const product = getProductById(productId);
+
+  if (!product) {
+    return res.status(404).json({ error: 'Product not found' });
+  }
+
+  res.json(product);
 });
 
 app.get('/', (req, res) => {

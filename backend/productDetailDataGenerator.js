@@ -24,8 +24,14 @@ const generateProductDetail = (count) => {
   for (let i = 0; i < count; i++) {
     const detail = {
       id: faker.string.uuid(),
+      image: faker.image.urlLoremFlickr({
+        category: 'nature',
+        width: 320,
+        height: 120,
+      }),
       name: faker.lorem.words(),
       description: faker.lorem.paragraphs(),
+      details: faker.lorem.paragraphs(),
       price: faker.finance.amount({ min: 0, max: 99, dec: 2, symbol: '$' }),
       arrivalDate: faker.date.recent(),
       comments: generateComments(faker.number.int({ min: 1, max: count })),
