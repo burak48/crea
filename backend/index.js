@@ -1,7 +1,54 @@
 import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 const app = express();
 const port = 3001;
+
+// Add middleware for parsing request bodies
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Add middleware for setting up CORS headers
+app.use(cors());
+
+const users = [
+  {
+    id: 1,
+    username: 'user',
+    password: '$2a$12$rG9czHZFac0imcj3o0OP0.2dv/sVs3MAs.lMFUQQzFpLa72wuJCZS', // Hashed password for "user123"
+  },
+];
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Find the user by username
+  const user = users.find((user) => user.username === username);
+
+  if (!user) {
+    return res.status(401).json({ message: 'Authentication failed' });
+  }
+
+  // Check if the password is correct
+  bcrypt.compare(password, user.password, (err, result) => {
+    if (err || !result) {
+      return res.status(401).json({ message: 'Authentication failed' });
+    }
+
+    // Generate a JWT token
+    const token = jwt.sign(
+      { userId: user.id },
+      'wvnpoN7UISgF0xNnyUXnkyBa-miJAGjVYMc3dOqMlQq4CPtbyVPNc5OjhIxyEsr5',
+      {
+        expiresIn: '1h',
+      }
+    );
+    res.status(200).json({ token });
+  });
+});
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');

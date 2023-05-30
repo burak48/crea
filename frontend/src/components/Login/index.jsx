@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
+import axios from 'axios'
 
 const Login = () => {
     const [username, setUsername] = useState('')
@@ -11,14 +12,25 @@ const Login = () => {
         setPassword('')
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        if (username === 'user' && password === 'user123') {
-            console.log('Successfully Logged In')
-            resetForm()
-            navigate('/home')
-        } else {
-            console.error('Invalid Credentials')
+
+        try {
+            const response = await axios.post(`http://localhost:3001/login`, {
+                username,
+                password,
+            })
+
+            if (response.status === 200) {
+                const {token} = response.data
+                localStorage.setItem('token', token)
+                navigate('/home')
+            } else {
+                console.log('Authentication failed')
+            }
+        } catch (error) {
+            console.log('An error occurred:', error)
+        } finally {
             resetForm()
         }
     }
