@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend of the project, responsible for the user interface and interaction.
 
-## Available Scripts
+## Technologies Used
 
-In the project directory, you can run:
+-   HTML, CSS, JavaScript
+-   React, React Router, Axios for HTTP requests, Tailwind for styling
 
-### `npm start`
+## Setup and Run
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone the repository:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+git clone https://github.com/burak48/crea.git
+```
 
-### `npm test`
+2. Install dependencies:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+cd frontend
+npm install
+```
 
-### `npm run build`
+3. Configure environment variables:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-   Create a `.env` file in the root of the `frontend` directory.
+-   Define the necessary environment variables in the `.env` file, such as API base URL.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+REACT_APP_API_URL={your_url_address}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Start the frontend development server:
 
-### `npm run eject`
+```
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The frontend development server should now be running and the application can be accessed in a web browser at the specified URL (default is http://localhost:3000).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Components
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The frontend of this application is composed of the following components:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+-   **App**: The main component that renders the entire application. This component contains the state of the application.
+-   **ProductDetail**: This component displays the details of a single product.
+-   **ProductList**: This component displays a list of all products available in the database.
+-   **Header**: This component allows users to click on the logo to easily navigate back to the home page within the app, and the logged-in user can logout with the logout button in the header.
+-   **Home**: This component is the landing page of the application. It displays all products.
+-   **Login**: This component provides a login form for users to access the application's features. Users must be authenticated in order to see products.
+-   **Star**: This component is a reusable component that represents a star icon, commonly used for rating system.
 
-## Learn More
+## Linting and Formatting
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project includes linting and formatting scripts to ensure code quality and consistency. The following commands can be used to run the linter and formatter:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-   `npm run lint`: Runs the linter to check for code style and potential errors.
+-   `npm run lint:fix`: Runs the linter and automatically fixes fixable issues.
+-   `npm run format`: Formats the codebase according to the specified code style rules.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+It is recommended to run these commands regularly to maintain a clean and consistent codebase.
