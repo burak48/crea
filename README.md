@@ -123,19 +123,19 @@ The frontend development server should now be running, and the application can b
 
 ## API Endpoints
 
-POST /login: Endpoint for user authentication.
-GET /products: Returns a list of all products.
-GET /product/:id: Returns the product with the given ID.
-POST /product/:id: Creates a new comment with the given data.
+POST /login: Endpoint for user authentication. <br />
+GET /products: Returns a list of all products. <br />
+GET /product/:id: Returns the product with the given ID. <br />
+POST /product/:id: Creates a new comment with the given data. <br />
 
 # Contributing
 
 If you would like to contribute to this project, please follow these steps:
 
-Fork the repository.
-Create a new branch for your feature or bug fix.
-Make your changes and commit them.
-Push your changes to your fork.
+Fork the repository. <br />
+Create a new branch for your feature or bug fix. <br />
+Make your changes and commit them. <br />
+Push your changes to your fork. <br />
 Submit a pull request to the main repository.
 
 # License
